@@ -8,9 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Optional;
 
 @Configuration
 @RequiredArgsConstructor
@@ -20,8 +23,20 @@ public class AppConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userRepo.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> {
+
+            Optional<com.example.ecommercewebsite.models.User> user = userRepo.findByEmail(username);
+
+            if (user.isEmpty()) {
+                throw new  UsernameNotFoundException("user not found with email %s".formatted(username));
+            }
+
+            return User.builder()
+                    .username(user.get().getUsername())
+                    .password(user.get().getPassword())
+                    .roles(user.get().getRole().toString())
+                    .build();
+        };
     }
 
     @Bean
