@@ -1,5 +1,6 @@
 package com.example.ecommercewebsite.auth;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +16,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<RegisterResponse> registerUser(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> registerUser(@RequestBody @Valid RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest, "USER"));
     }
 
     @PostMapping("/seller/register")
-    public ResponseEntity<RegisterResponse> registerSeller(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> registerSeller(@RequestBody @Valid RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest, "SELLER"));
     }
 
