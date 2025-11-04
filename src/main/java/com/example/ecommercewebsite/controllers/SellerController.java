@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/seller")
 @AllArgsConstructor
@@ -23,9 +21,9 @@ public class SellerController {
 
     @PostMapping("/create/product")
     public ResponseEntity<StringResponse> createProduct(@RequestBody @Valid ProductDTO productDTO) {
+        System.out.println("hello world");
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         productService.createProduct(productDTO, email);
         return ResponseEntity.ok(new StringResponse("product successfully created"));
     }
-
 }

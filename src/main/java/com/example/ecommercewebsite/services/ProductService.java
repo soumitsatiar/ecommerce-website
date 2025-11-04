@@ -7,6 +7,7 @@ import com.example.ecommercewebsite.repositories.ProductRepo;
 import com.example.ecommercewebsite.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class ProductService {
     private final ProductRepo productRepo;
     private final UserRepo userRepo;
 
+    @Transactional
     public void createProduct(ProductDTO product, String email) {
         Optional<User> seller = userRepo.findByEmail(email);
 
@@ -31,11 +33,10 @@ public class ProductService {
 
             productRepo.save(product1);
         }
-
     }
 
+    @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
         return productRepo.findAll();
     }
-
 }

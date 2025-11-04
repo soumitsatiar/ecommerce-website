@@ -41,5 +41,4 @@ public class DemoController {
 
         return user;
     }
-
 }

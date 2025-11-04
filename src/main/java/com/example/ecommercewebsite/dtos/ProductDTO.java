@@ -12,5 +12,6 @@ public record ProductDTO(
         Double price,
 
         @Size(min = 1, max = 300)
-        String body) {
+        String body
+) {
 }
