@@ -20,8 +20,12 @@ public class TagService {
 
     @Transactional
     public ResponseMessage createTag(String tagName) {
-        Optional<Tag> tag = tagRepo.findByName(tagName);
-        if (tag.isPresent()) return new ResponseMessage("Tag already exists!");
+        List<Tag> tags = tagRepo.findAll();
+
+        for (Tag t : tags)
+            if (t.getName().equalsIgnoreCase(tagName))
+                return new ResponseMessage("Tag already exists!");
+
         tagRepo.save(Tag.builder().name(tagName).build());
         return new ResponseMessage("Tag created successfully.");
     }
