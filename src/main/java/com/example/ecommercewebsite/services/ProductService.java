@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +39,17 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
         return productRepo.findAll();
+    }
+
+    @Transactional
+    public String deleteProduct(UUID id) {
+        Optional<Product> product = productRepo.findById(id);
+
+        if (product.isPresent()) {
+            productRepo.delete(product.get());
+            return "Product Deleted Successfully.";
+        }
+
+        return "Product Not Found.";
     }
 }
