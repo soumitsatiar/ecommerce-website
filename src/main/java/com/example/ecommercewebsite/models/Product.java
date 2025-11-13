@@ -24,6 +24,7 @@ public class Product {
     @JsonBackReference
     private User user;
 
+    private Integer quantity;
     private String productName;
     private Double price;
     private String body;

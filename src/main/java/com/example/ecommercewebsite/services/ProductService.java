@@ -28,6 +28,7 @@ public class ProductService {
             Product product1 = Product.builder()
                     .productName(product.productName())
                     .price(product.price())
+                    .quantity(product.quantity())
                     .body(product.body())
                     .user(seller.get())
                     .build();
