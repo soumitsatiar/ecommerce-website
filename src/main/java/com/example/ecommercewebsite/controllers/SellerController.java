@@ -29,6 +29,11 @@ public class SellerController {
         return ResponseEntity.ok(new StringResponse("product successfully created"));
     }
 
+    @PutMapping("/product/{id}")
+    public ResponseEntity<StringResponse> updateProduct(@PathVariable UUID id, @RequestBody @Valid ProductDTO productDTO) {
+        return ResponseEntity.ok(new StringResponse(productService.updateProduct(productDTO, id)));
+    }
+
     @GetMapping("/products")
     public List<Product>  getProducts() {
         return productService.getAllProducts();

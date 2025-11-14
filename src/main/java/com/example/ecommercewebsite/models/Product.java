@@ -24,6 +24,9 @@ public class Product {
     @JsonBackReference
     private User user;
 
+    @ManyToOne
+    private Tag tag;
+
     private Integer quantity;
     private String productName;
     private Double price;
