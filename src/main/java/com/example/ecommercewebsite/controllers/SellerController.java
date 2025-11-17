@@ -39,6 +39,11 @@ public class SellerController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<Product> getProduct(@PathVariable("productId") UUID id) {
+        return ResponseEntity.ok(productService.getProduct(id));
+    }
+
     @DeleteMapping("/product/{productId}")
     public ResponseEntity<ResponseMessage> deleteProduct(@PathVariable("productId") UUID id) {
         return ResponseEntity.ok(new ResponseMessage(productService.deleteProduct(id)));

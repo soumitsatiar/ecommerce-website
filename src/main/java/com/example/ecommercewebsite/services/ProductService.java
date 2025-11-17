@@ -83,4 +83,9 @@ public class ProductService {
 
         return "Product Not Found.";
     }
+
+    public Product getProduct(UUID id) {
+        Optional<Product> product = productRepo.findById(id);
+        return product.orElse(null);
+    }
 }
